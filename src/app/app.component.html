@@ -1,0 +1,57 @@
+
+<h1>Reactive Forms</h1>
+
+<div class="container mt-5">
+  <div class="form-area">
+    <form [formGroup] = "form">
+  
+      <div class="form-group">
+        <label> First Name </label>
+        <input 
+          type="text" 
+          placeholder="Full name" 
+          class="form-control" 
+          name = "fullName"
+          formControlName = "fullName" 
+          > 
+
+          <div class="alert alert-danger" *ngIf = 'fullName.touched && fullName.invalid'>
+
+            <div *ngIf = 'fullName.errors?.required'>
+              The Full name is required....
+            </div>
+            <div *ngIf = 'fullName.errors?.minlength'>
+              The Full name must be atleast 5 letters
+            </div>
+
+          </div>
+      </div>
+  
+      <div class="form-group">
+        <label> Email </label>
+        <input 
+        type="email" 
+        placeholder="Email" 
+        class="form-control" 
+        name = "email"
+        formControlName = "email"
+        >
+      </div>
+
+      <div class="form-group">
+        <label> Address </label>
+        <textarea 
+          cols="30" 
+          rows="10" 
+          placeholder="Address" 
+          class="form-control" 
+          name = "address" 
+          formControlName = "address"
+          ></textarea>
+      </div>
+      
+      <button type="Submit" class="btn btn-primary">Submit</button>
+  
+    </form>
+  </div>
+</div>
