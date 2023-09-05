@@ -1,57 +1,94 @@
-
 <h1>Reactive Forms</h1>
 
 <div class="container mt-5">
   <div class="form-area">
-    <form [formGroup] = "form">
-  
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
       <div class="form-group">
-        <label> First Name </label>
-        <input 
-          type="text" 
-          placeholder="Full name" 
-          class="form-control" 
-          name = "fullName"
-          formControlName = "fullName" 
-          > 
+        <label> Full Name </label>
+        <input type="text" placeholder="Full name" class="form-control" name="fullName" formControlName="fullName" [ngClass]="{'is-invalid' : fullName.touched && fullName.invalid }">
 
-          <div class="alert alert-danger" *ngIf = 'fullName.touched && fullName.invalid'>
+        <!-- Reactive Forms validation for Text Input field -->
 
-            <div *ngIf = 'fullName.errors?.required'>
-              The Full name is required....
+        <div class="alert alert-danger" *ngIf='fullName.touched && fullName.invalid'>
+
+          <div *ngIf='fullName.errors?.required'>
+            The Full name is required....
+          </div>
+          <div *ngIf='fullName.errors?.minlength'>
+            The Full name must be atleast 5 letters
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label> Email </label>
+        <input type="email" placeholder="Email" class="form-control" name="email" formControlName="email" [ngClass]="{'is-invalid' : email.touched && email.invalid }">
+
+        <div class="alert alert-danger" *ngIf='email.touched && email.invalid'>
+
+          <div *ngIf='email.errors?.required'>
+            The Email address is required....
+          </div>
+          <div *ngIf='email.errors?.email'>
+            Invalid Email address, this must be like this "your@name.com"
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Contact Details Form Group -->
+      <div formGroupName = 'contactDetails'>
+        <div class="form-group">
+          <label> Address </label>
+          <textarea cols="30" rows="10" placeholder="Address" class="form-control" name="address"
+            formControlName="address" [ngClass]="{'is-invalid' : address.touched && address.invalid }"></textarea>
+
+          <div class="alert alert-danger" *ngIf='address.touched && address.invalid'>
+
+            <div *ngIf='address.errors?.required'>
+              The address is required....
             </div>
-            <div *ngIf = 'fullName.errors?.minlength'>
-              The Full name must be atleast 5 letters
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label> Shipping Address </label>
+          <textarea cols="30" rows="10" placeholder="Shipping Address" class="form-control" name="shippingAddress"
+            formControlName="shippingAddress" [ngClass]="{'is-invalid' : shippingAddress.touched && shippingAddress.invalid }"></textarea>
+
+          <div class="alert alert-danger" *ngIf='shippingAddress.touched && shippingAddress.invalid'>
+
+            <div *ngIf='shippingAddress.errors?.required'>
+              The Shipping address is required....
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label> Contact Number </label>
+          <input type="text" placeholder="Enter contact number" class="form-control" name="contactNumber"
+            formControlName="contactNumber" [ngClass]="{'is-invalid' : contactNumber.touched && contactNumber.invalid }">
+
+          <!-- Reactive Forms validation for Text Input field -->
+
+          <div class="alert alert-danger" *ngIf='contactNumber.touched && contactNumber.invalid'>
+
+            <div *ngIf='contactNumber.errors?.required'>
+              The Contact number is required....
+            </div>
+            <div *ngIf='contactNumber.errors?.pattern'>
+              Invalid Contact Number
             </div>
 
           </div>
-      </div>
-  
-      <div class="form-group">
-        <label> Email </label>
-        <input 
-        type="email" 
-        placeholder="Email" 
-        class="form-control" 
-        name = "email"
-        formControlName = "email"
-        >
+        </div>
       </div>
 
-      <div class="form-group">
-        <label> Address </label>
-        <textarea 
-          cols="30" 
-          rows="10" 
-          placeholder="Address" 
-          class="form-control" 
-          name = "address" 
-          formControlName = "address"
-          ></textarea>
-      </div>
-      
-      <button type="Submit" class="btn btn-primary">Submit</button>
-  
+      <!-- Contact Details end -->
+      <button type="Submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+
     </form>
   </div>
 </div>
